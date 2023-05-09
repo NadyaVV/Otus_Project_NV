@@ -1,14 +1,13 @@
 package exceptions;
 
 import annotations.Driver;
+import driver.MouseListener;
 import driver.impl.DriverFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class UIExtension implements BeforeEachCallback, AfterEachCallback {
 
-  private WebDriver driver = null;
+  private EventFiringWebDriver driver = null;
 
   private List<Field> getAnnotatedFields(Class<? extends Annotation> annotation, ExtensionContext extensionContext) {
     List<Field> set = new ArrayList<>();
@@ -38,6 +37,7 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback {
   @Override
   public void beforeEach(ExtensionContext extensionContext) {
     driver = new DriverFactory().getDriver();
+    driver.register(new MouseListener());
     List<Field> fields = getAnnotatedFields(Driver.class, extensionContext);
 
     for (Field field : fields) {

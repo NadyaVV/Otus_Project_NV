@@ -140,8 +140,6 @@ public class MainPage extends BasePage<MainPage> {
   public MainPage moveToElementHighlightAndClick(String text) {
     WebElement element = driver.findElement(By.xpath(String.format(COURSE_ITEM, text)));
     actions.moveToElement(element).build().perform();
-    JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-    jsExecutor.executeScript("arguments[0].style.border='2px solid red'", element);
     element.click();
     return this;
   }
