@@ -26,17 +26,6 @@ public interface IDriver {
     Config wdmConfig = WebDriverManager.globalConfig();
     wdmConfig.setAvoidBrowserDetection(true);
 
-    String browserVersion = System.getProperty("browser.version", "107.0");
-
-
-    if (!browserVersion.isEmpty()) {
-      if (driverType == DriverManagerType.CHROME) {
-        wdmConfig.setChromeDriverVersion(browserVersion);
-      } else {
-        throw new DriverTypeNotSupported(driverType.name());
-      }
-    }
-
     WebDriverManager.getInstance(driverType).setup();
   }
 }

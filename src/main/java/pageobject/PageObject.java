@@ -2,6 +2,7 @@ package pageobject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 
 public abstract class PageObject<T> {
 
@@ -12,5 +13,6 @@ public abstract class PageObject<T> {
   public PageObject(WebDriver driver) {
     this.driver = driver;
     this.actions = new Actions(driver);
+    PageFactory.initElements(driver, this);
   }
 }

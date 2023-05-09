@@ -9,9 +9,9 @@ import org.openqa.selenium.WebDriver;
 @Urls(
     @UrlTemplate(name = "categories", value = "?categories=%1")
 )
-public class CoursesCatalog extends BasePage<CoursesCatalog> {
+public class CoursesCatalogPage extends BasePage<CoursesCatalogPage> {
 
-  public CoursesCatalog(WebDriver driver) {
+  public CoursesCatalogPage(WebDriver driver) {
     super(driver);
   }
 }
