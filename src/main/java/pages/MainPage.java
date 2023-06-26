@@ -38,9 +38,7 @@ public class MainPage extends BasePage<MainPage> {
   public MainPage findCourseByName(String courseName) {
     List<String> actualCourseNames = getLessonsItemLocator.stream().map(WebElement::getText)
         .filter(el -> el.equals(courseName)).collect(Collectors.toList());
-    if (actualCourseNames.isEmpty()) {
-      LOGGER.warning(String.format("No courses found by text %s", courseName));
-    }
+    Assertions.assertNotEquals(actualCourseNames.size(), 0, "Actual Course list can't be empty.");
     Assertions.assertEquals(courseName, actualCourseNames.get(0), "Course names are not matched.");
     return this;
   }

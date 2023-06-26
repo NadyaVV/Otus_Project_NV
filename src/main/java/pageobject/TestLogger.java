@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class TestLogger {
 
-  public static final Logger LOGGER = LogManager.getLogManager().getLogger(TestLogger.class.getName());
+  public static final Logger LOGGER = Logger.getAnonymousLogger();
 
   private TestLogger() {
   }
