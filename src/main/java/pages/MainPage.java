@@ -139,8 +139,13 @@ public class MainPage extends BasePage<MainPage> {
 
   public MainPage moveToElementHighlightAndClick(String text) {
     WebElement element = driver.findElement(By.xpath(String.format(COURSE_ITEM, text)));
+    scrollIntoView(element);
     actions.moveToElement(element).build().perform();
     element.click();
     return this;
+  }
+
+  public void scrollIntoView(WebElement element){
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
   }
 }

@@ -71,7 +71,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CoursesAppearanceOnMainPage_Test.checkboxEarliestCourseName">
+  <component name="RunManager" selected="JUnit.CoursesAppearanceOnMainPage_Test.checkboxCategoryCourses">
     <configuration name="CoursesAppearanceOnMainPage_Test.checkboxCategoryCourses" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Otus_Project_NV" />
       <extension name="coverage">

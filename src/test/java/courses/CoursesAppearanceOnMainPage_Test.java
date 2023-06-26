@@ -16,9 +16,9 @@ public class CoursesAppearanceOnMainPage_Test {
   public void checkboxCategoryCourses() {
     new MainPage(driver)
         .open()
-        .findCourseByName("Team Lead")
-        .moveToElementHighlightAndClick("Team Lead")
-        .headerShouldBeSameAs("Team Lead");
+        .findCourseByName("Системный аналитик. Advanced")
+        .moveToElementHighlightAndClick("Системный аналитик. Advanced")
+        .headerShouldBeSameAs("Системный аналитик. Advanced");
   }
 
   @Test
@@ -32,6 +32,6 @@ public class CoursesAppearanceOnMainPage_Test {
   public void checkboxOldestCourseName() {
     new MainPage(driver)
         .open()
-        .checkOldestCourseName("Разработка прикладного ПО на Qt и ОС Аврора");
+        .checkOldestCourseName("Системный аналитик. Advanced");
   }
 }
