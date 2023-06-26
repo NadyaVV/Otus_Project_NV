@@ -1,12 +1,12 @@
 package data;
 
-public enum CoursesCategoryData {
+public enum ECoursesCategoryData {
 
   Programming("Программирование");
 
   private String name;
 
-  CoursesCategoryData(String name) {
+  ECoursesCategoryData(String name) {
     this.name = name;
   }
 

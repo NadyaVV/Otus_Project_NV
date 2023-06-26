@@ -28,7 +28,7 @@ public class MainPage extends BasePage<MainPage> {
 
   private static final String COURSE_ITEM = "//div[contains(@class, 'lessons__new-item-title')][contains(text(),'%s')]";
 
-  private static final String COURSE_NAME = "//div[@class= 'lessons__new-item-start']/../../div[contains(@class, 'lessons__new-item-title')]";
+  private static final String COURSE_NAME = "//div[@class= 'lessons__new-item-start']/ancestor::div/div[contains(@class, 'lessons__new-item-title')]";
 
 
   private List<GregorianCalendar> courseDates = new ArrayList<>();
@@ -80,7 +80,7 @@ public class MainPage extends BasePage<MainPage> {
     int year, month, day;
 
     for (String startDate : coursesStartDates) {
-      String[] splittedDates = startDate.split(" ");
+      String[] splittedDates = startDate.split("\\s+");
       year = getCourseYear(splittedDates);
       month = getCourseMonth(splittedDates);
       day = Integer.parseInt(splittedDates[1]);

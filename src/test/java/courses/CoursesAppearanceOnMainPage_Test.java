@@ -25,7 +25,7 @@ public class CoursesAppearanceOnMainPage_Test {
   public void checkboxEarliestCourseName() {
     new MainPage(driver)
         .open()
-        .checkEarliestCourseName("Machine Learning. Advanced");
+        .checkEarliestCourseName("Delivery Manager");
   }
 
   @Test

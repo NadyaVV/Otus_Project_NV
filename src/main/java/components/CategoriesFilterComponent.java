@@ -1,6 +1,6 @@
 package components;
 
-import data.CoursesCategoryData;
+import data.ECoursesCategoryData;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,7 @@ public class CategoriesFilterComponent extends AbsBaseComponent {
 
   private String checkboxInputLocatorTemplate = "//label[text()='%s']/..//input[@type='checkbox']";
 
-  public CategoriesFilterComponent checkboxStatusShouldBe(CoursesCategoryData coursesCategoryData, boolean expectedCheckboxState) {
+  public CategoriesFilterComponent checkboxStatusShouldBe(ECoursesCategoryData coursesCategoryData, boolean expectedCheckboxState) {
     String locator = String.format(checkboxInputLocatorTemplate, coursesCategoryData.getName());
     Assertions.assertEquals(driver.findElement(By.xpath(locator)).isSelected(), expectedCheckboxState, "Checkbox status is wrong");
 
