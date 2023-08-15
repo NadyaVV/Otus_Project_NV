@@ -6,6 +6,7 @@
 
   <groupId>org.example</groupId>
   <artifactId>Otus_Project_NV</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -17,6 +18,9 @@
     <selenium.java.version>3.141.59</selenium.java.version>
     <junit.version>5.8.1</junit.version>
     <faker.version>1.0.1</faker.version>
+    <aspectj.version>1.9.6</aspectj.version>
+    <allure-maven.version>2.10.0</allure-maven.version>
+    <allure-junit5.version>2.14.0</allure-junit5.version>
 
     <forkCount>1</forkCount>
     <reuseForks>true</reuseForks>
@@ -66,12 +70,19 @@
       <version>${faker.version}</version>
       <!--            <scope>test</scope>-->
     </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.junit.jupiter</groupId>-->
-<!--                <artifactId>junit-jupiter-api</artifactId>-->
-<!--                <version>${junit.version}</version>-->
-<!--                <scope>compile</scope>-->
-<!--            </dependency>-->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>${allure-junit5.version}</version>
+      <!--            <scope>test<scope>-->
+    </dependency>
+
+    <!--            <dependency>-->
+    <!--                <groupId>org.junit.jupiter</groupId>-->
+    <!--                <artifactId>junit-jupiter-api</artifactId>-->
+    <!--                <version>${junit.version}</version>-->
+    <!--                <scope>compile</scope>-->
+    <!--            </dependency>-->
   </dependencies>
 
   <profiles>
@@ -103,6 +114,16 @@
           <useUnlimitedThreads>${useUnlimitedTreads}</useUnlimitedThreads>
           <threadCountMethods>${thread.count}</threadCountMethods>
 
+          <systemProperties>
+            <property>
+              <name>allure.results.directory</name>
+              <value>${project.basedir}/allure-results</value>
+            </property>
+            <property>
+              <name>junit.jupiter.extensions.autodetection.enabled</name>
+              <value>true</value>
+            </property>
+          </systemProperties>
 
           <systemPropertyVariables>
             <browser>${browser}</browser>
@@ -112,21 +133,31 @@
             <test.project.status>test</test.project.status>
             <test.project.language>${test.project.language}</test.project.language>
           </systemPropertyVariables>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>io.qameta.allure.junit5.AllureJunit5</value>
+            </property>
+          </properties>
+          <argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+          </argLine>
         </configuration>
         <dependencies>
           <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+          <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <!--                        <version>${junit.version}</version>-->
-            <version>5.8.1</version>
-            <!--                        <scope>test</scope>-->
+            <version>${junit.version}</version>
           </dependency>
           <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <!--                        <version>${junit.version}</version>-->
-            <version>5.8.1</version>
-            <!--                        <scope>test</scope>-->
+            <version>${junit.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -158,34 +189,16 @@
           </execution>
         </executions>
       </plugin>
-                  <plugin>
-                      <groupId>com.github.spotbugs</groupId>
-                      <artifactId>spotbugs-maven-plugin</artifactId>
-                      <version>4.7.2.1</version>
-                      <dependencies>
-                          <dependency>
-                              <groupId>com.github.spotbugs</groupId>
-                              <artifactId>spotbugs</artifactId>
-                              <version>4.7.3</version>
-                          </dependency>
-                      </dependencies>
-                      <configuration>
-                          <effort>Max</effort>
-                          <threshold>Low</threshold>
-                          <xmlOutput>true</xmlOutput>
-                          <includeTests>true</includeTests>
-                          <omitVisitors>UnreadFields</omitVisitors>
-                      </configuration>
-                      <executions>
-                          <execution>
-                              <id>analyze-compile</id>
-                              <phase>compile</phase>
-                              <goals>
-                                  <goal>check</goal>
-                              </goals>
-                          </execution>
-                      </executions>
-                  </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.7.2.1</version>
+      </plugin>
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>${allure-maven.version}</version>
+      </plugin>
     </plugins>
   </build>
 </project>

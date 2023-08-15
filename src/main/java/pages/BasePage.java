@@ -1,7 +1,9 @@
 package pages;
 
 import annotations.Path;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +16,7 @@ public abstract class BasePage<T> extends PageObject<T> {
   @FindBy(tagName = "h1")
   private WebElement header;
 
+  @Step("Check header")
   public T headerShouldBeSameAs(String header) {
     Assertions.assertEquals(header, this.header.getText());
 
@@ -32,6 +35,7 @@ public abstract class BasePage<T> extends PageObject<T> {
     return "";
   }
 
+  @Step("Open Main page")
   public T open() {
     driver.get(baseUrl + getPath());
     return (T) this;

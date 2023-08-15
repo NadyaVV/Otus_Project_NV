@@ -1,8 +1,7 @@
 package pages;
 
-import static pageobject.TestLogger.LOGGER;
-
 import annotations.Path;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -20,7 +19,7 @@ public class MainPage extends BasePage<MainPage> {
     super(driver);
   }
 
-  @FindBy(css = ".lessons__new-item-title")
+  @FindBy(css = ".fgNPoG h5")
   private List<WebElement> getLessonsItemLocator;
 
   @FindBy(xpath = "//div[contains(@class, 'lessons__new-item-start')]")
@@ -35,6 +34,7 @@ public class MainPage extends BasePage<MainPage> {
 
   private Map<GregorianCalendar, String> courseDatesAndNames = new HashMap<>();
 
+  @Step("Find course by name")
   public MainPage findCourseByName(String courseName) {
     List<String> actualCourseNames = getLessonsItemLocator.stream().map(WebElement::getText)
         .filter(el -> el.equals(courseName)).collect(Collectors.toList());
@@ -43,6 +43,7 @@ public class MainPage extends BasePage<MainPage> {
     return this;
   }
 
+  @Step("Get Course Month")
   public int getCourseMonth(String[] splittedDates) {
     switch (splittedDates[2]) {
       case "января":
@@ -74,6 +75,7 @@ public class MainPage extends BasePage<MainPage> {
     }
   }
 
+  @Step("Find course by date")
   public void fillCourseDates(List<String> coursesStartDates) {
     int year, month, day;
 
@@ -88,6 +90,7 @@ public class MainPage extends BasePage<MainPage> {
     }
   }
 
+  @Step("Get course year")
   public int getCourseYear(String[] splittedDates) {
     if (splittedDates.length <= 3) {
       return Calendar.getInstance().get(Calendar.YEAR);
@@ -96,6 +99,7 @@ public class MainPage extends BasePage<MainPage> {
     }
   }
 
+  @Step("Fill course date and name")
   public void fillCourseDatesAndNames() {
     List<WebElement> courseNames = driver.findElements(By.xpath(COURSE_NAME));
     for (int i = 0; i < courseNames.size(); i++) {
@@ -103,12 +107,14 @@ public class MainPage extends BasePage<MainPage> {
     }
   }
 
+  @Step("Get oldest course date")
   public GregorianCalendar getOldestCourseDate() {
     GregorianCalendar minGc = new GregorianCalendar();
     minGc.setTime(new Date(Long.MIN_VALUE));
     return courseDates.stream().reduce(minGc, (left, right) -> left.compareTo(right) > 0 ? left : right);
   }
 
+  @Step("Get earliest course date")
   public GregorianCalendar getEarliestCourseDate() {
     GregorianCalendar maxGc = new GregorianCalendar();
     maxGc.setTime(new Date(Long.MAX_VALUE));
@@ -121,6 +127,7 @@ public class MainPage extends BasePage<MainPage> {
     return coursesStartDates;
   }
 
+  @Step("Check earliest course name")
   public void checkEarliestCourseName(String expectedEarliestCourseName) {
     fillCourseDates(getStartDatesStrings(courseStartDates));
     fillCourseDatesAndNames();
@@ -128,6 +135,7 @@ public class MainPage extends BasePage<MainPage> {
         "Course names don't match!");
   }
 
+  @Step("Check Oldest course name")
   public void checkOldestCourseName(String expectedOldestCourseName) {
     fillCourseDates(getStartDatesStrings(courseStartDates));
     fillCourseDatesAndNames();
@@ -135,6 +143,7 @@ public class MainPage extends BasePage<MainPage> {
         "Course names don't match!");
   }
 
+  @Step("Move to element, highlight and click")
   public MainPage moveToElementHighlightAndClick(String text) {
     WebElement element = driver.findElement(By.xpath(String.format(COURSE_ITEM, text)));
     scrollIntoView(element);

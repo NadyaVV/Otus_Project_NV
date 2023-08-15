@@ -2,6 +2,7 @@ package courses;
 
 import annotations.Driver;
 import exceptions.UIExtension;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
@@ -13,15 +14,17 @@ public class CoursesAppearanceOnMainPage_Test {
   private WebDriver driver;
 
   @Test
+  @DisplayName("Check header on page for exact course")
   public void checkboxCategoryCourses() {
     new MainPage(driver)
         .open()
-        .findCourseByName("Системный аналитик. Advanced")
-        .moveToElementHighlightAndClick("Системный аналитик. Advanced")
-        .headerShouldBeSameAs("Системный аналитик. Advanced");
+        .findCourseByName("Специализация Machine Learning")
+        .moveToElementHighlightAndClick("Специализация Machine Learning")
+        .headerShouldBeSameAs("Специализация Machine Learning");
   }
 
   @Test
+  @DisplayName("Find the earliest course")
   public void checkboxEarliestCourseName() {
     new MainPage(driver)
         .open()
@@ -29,9 +32,10 @@ public class CoursesAppearanceOnMainPage_Test {
   }
 
   @Test
+  @DisplayName("Find the oldest course")
   public void checkboxOldestCourseName() {
     new MainPage(driver)
         .open()
-        .checkOldestCourseName("Системный аналитик. Advanced");
+        .checkOldestCourseName("Специализация Machine Learning");
   }
 }
