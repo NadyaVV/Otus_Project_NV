@@ -14,7 +14,7 @@ public class CoursesAppearanceOnMainPage_Test {
   @Driver
   private WebDriver driver;
 
-  @Test ()
+  @Test
   @Description("Check header on page for exact course")
   public void checkboxCategoryCourses() {
     new MainPage(driver)

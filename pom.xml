@@ -62,27 +62,17 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>${junit.version}</version>
-      <!--            <scope>test</scope>-->
     </dependency>
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
       <version>${faker.version}</version>
-      <!--            <scope>test</scope>-->
     </dependency>
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-junit5</artifactId>
       <version>${allure-junit5.version}</version>
-      <!--            <scope>test<scope>-->
     </dependency>
-
-    <!--            <dependency>-->
-    <!--                <groupId>org.junit.jupiter</groupId>-->
-    <!--                <artifactId>junit-jupiter-api</artifactId>-->
-    <!--                <version>${junit.version}</version>-->
-    <!--                <scope>compile</scope>-->
-    <!--            </dependency>-->
   </dependencies>
 
   <profiles>
