@@ -1,37 +1,25 @@
-timeout(60) {
-    node('maven-slave') {
+timeout(10) {
+    node('maven') {
         stage('Checkout') {
             checkout scm
-            // git branch: "$BRANCH", credentialsId: 'jenkins', url: 'git@github.com:saint88/jenkins.git'
         }
-        stage('Run tests') {
-            def jobs = [:]
-
-            def runnerJobs = "$TEST_TYPE".split(",")
-
-            jobs['ui_tests'] = {
-                node('maven-slave') {
-                    stage('Ui tests on chrome') {
-                        if('ui' in runnerJobs) {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                                build(job: 'ui-tests',
-                                        parameters: [
-                                                string(name: 'BRANCH', value: BRANCH),
-                                                string(name: 'BASE_URL', value: BASE_URL),
-                                                string(name: 'BROWSER', value: BROWSER),
-                                                string(name: 'BROWSER_VERSION', value: BROWSER_VERSION),
-                                                string(name: 'GRID_URL', value: GRID_URL)
-                                        ])
-                            }
-                        } else {
-                            echo 'Skipping stage...'
-                            Utils.markStageSkippedForConditional('keystone api tests')
-                        }
-                    }
-                }
+        stage("Run tests") {
+            def exitCode = sh(
+                    returnStatus: true,
+                    script: """
+                    mvn test -Dbrowser=$BROWSER -Dbrowser.version=$BROWSER_VERSION -Dwebdriver.base.url=$BASE_URL -Dwebdriver.remote.url=$GRID_URL
+                    """
+            )
+            if (exitCode != 0) {
+                currentBuild.result = 'UNSTABLE'
             }
-
-            parallel jobs
+        }
+        stage('Publish artifacts') {
+            allure([results          : [[
+                                                path: 'allure-results'
+                                        ]],
+                    disabled         : false,
+                    reportBuildPolicy: 'ALWAYS'])
         }
     }
 }
